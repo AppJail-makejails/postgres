@@ -1,0 +1,2 @@
+OPTION volume=pg-db mountpoint:/var/db/postgres owner:770 group:770
+OPTION volume=pg-data mountpoint:/var/db/postgres/data${pg_version} owner:770 group:770 perm:700
