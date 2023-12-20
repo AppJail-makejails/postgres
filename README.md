@@ -128,3 +128,4 @@ mount.devfs
 
 1. The ideas present in the Docker image of PostgreSQL are taken into account for users who are familiar with it.
 2. `listen_addresses` is set to `*`.
+3. This Makejail assumes a new installation for each run, if you want to not run the scripts that configure PostgreSQL, mount an empty directory to `/.psql-done`.
