@@ -53,7 +53,7 @@ mount.devfs
 
 ```
 
-## Locale Customization
+### Locale Customization
 
 ### Initialization scripts
 
