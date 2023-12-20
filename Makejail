@@ -1,0 +1,43 @@
+INCLUDE options/options.makejail
+
+ARG postgres_tag=13.2-16
+
+FROM --entrypoint gh+AppJail-makejails/postgres postgres:${postgres_tag}
+
+RAW if appjail cmd jexec "${APPJAIL_JAILNAME}" [ -f "/.psql-done/skip-scripts" ]; then
+	CMD echo "======> Installation appears to have a PostgreSQL already configured, the scripts will not run. <======"
+RAW else
+	CMD echo "======> Installing scripts ... <======"
+	COPY --verbose scripts
+
+	CMD echo "======> Configuring ... <======"
+
+	WORKDIR /scripts
+
+	USER postgres
+
+	CMD echo "======> Configuring 'initdb' ... <======"
+	RUN ./initdb.sh
+
+	CMD echo "======> Configuring 'pg_hba.conf' ... <======"
+	RUN ./pg_hba.sh
+
+	CLEAR user
+
+	CMD echo "======> Configuring 'RC script' ... <======"
+	RUN ./rc.sh
+
+	USER postgres
+
+	CMD echo "======> Creating database ... <======"
+	RUN ./setup-db.sh
+
+	CMD echo "======> Running 'initdb scripts' ... <======"
+	RUN ./init-files.sh
+
+	CMD echo "======> Uninstalling scripts ... <======"
+	CMD rm -rf /scripts
+
+	CMD mkdir -p "/.psql-done"
+	CMD touch "/.psql-done/skip-scripts"
+RAW fi
