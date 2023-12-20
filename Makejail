@@ -6,6 +6,12 @@ FROM --entrypoint gh+AppJail-makejails/postgres postgres:${postgres_tag}
 
 RAW if appjail cmd jexec "${APPJAIL_JAILNAME}" [ -f "/.psql-done/skip-scripts" ]; then
 	CMD echo "======> Installation appears to have a PostgreSQL already configured, the scripts will not run. <======"
+
+	CMD echo "======> Enabling postgresql ... <======"
+    SYSRC postgresql_enable=YES
+
+	CMD echo "======> Starting postgresql ... <======"
+    SERVICE postgresql start
 RAW else
 	CMD echo "======> Installing scripts ... <======"
 	COPY --verbose scripts
