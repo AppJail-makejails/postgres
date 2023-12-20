@@ -16,7 +16,7 @@ wikipedia.org/wiki/PostgreSQL
 # appjail makejail \
     -j postgres \
     -f gh+AppJail-makejails/postgres \
-    -o virtualnet=":<random> nat" \
+    -o virtualnet=":<random> default" \
     -o nat \
     -o template=template.conf \
     -V POSTGRES_PASSWORD=mysecretpassword
