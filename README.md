@@ -127,3 +127,4 @@ mount.devfs
 ## Notes
 
 1. The ideas present in the Docker image of PostgreSQL are taken into account for users who are familiar with it.
+2. `listen_addresses` is set to `*`.
