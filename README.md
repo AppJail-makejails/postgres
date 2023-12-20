@@ -18,7 +18,7 @@ wikipedia.org/wiki/PostgreSQL
     -f gh+AppJail-makejails/postgres \
     -o virtualnet=":<random> default" \
     -o nat \
-    -o template=template.conf \
+    -o template="$PWD/template.conf" \
     -V POSTGRES_PASSWORD=mysecretpassword
 # appjail cmd jexec postgres -U postgres psql
 $ psql
