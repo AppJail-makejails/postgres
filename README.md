@@ -55,6 +55,29 @@ mount.devfs
 
 ### Locale Customization
 
+For an existing jail, you can apply a Makejail as follows:
+
+```
+STAGE apply
+
+CMD echo "postgres:\\" >> /etc/login.conf
+CMD echo "        :lang=en_US.UTF-8:\\" >> /etc/login.conf
+CMD echo "        :setenv=LC_COLLATE=C:\\" >> /etc/login.conf
+CMD echo "        :tc=default:" >> /etc/login.conf
+
+CMD cap_mkdb /etc/login.conf
+
+SYSRC postgresql_class=postgres
+
+SERVICE postgresql restart
+```
+
+Simply use `appjail apply`:
+
+```
+appjail apply postgres
+```
+
 ### Initialization scripts
 
 If you would like to do additional initialization in an image derived from this one, add one or more `*.sql`, `*.sql.gz`, or `*.sh` scripts under `/appjail-initdb.d` (creating the directory if necessary). After starting PostgreSQL, this Makejail will run any `*.sql` files, run any executable `*.sh` scripts, and source any non-executable `*.sh` scripts found in that directory for further customization.
