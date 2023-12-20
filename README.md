@@ -50,8 +50,27 @@ mount.devfs
 **appjail-director.yml**:
 
 ```yaml
+options:
+  - virtualnet: ':<random> default'
+  - nat:
 
+services:
+  db:
+    name: postgres
+    makejail: gh+AppJail-makejails/postgres
+    environment:
+      - POSTGRES_PASSWORD: example
+    options:
+      - template: !ENV '${PWD}/template.conf'
+
+  adminerevo:
+    name: adminerevo
+    makejail: gh+AppJail-makejails/adminerevo
+    options:
+      - expose: '8080:80'
 ```
+
+Run `appjail-director up` and wait until the project finishes. In just a few minutes you have PostgreSQL deployed.
 
 ### Locale Customization
 
