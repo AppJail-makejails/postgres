@@ -126,4 +126,4 @@ mount.devfs
 
 ## Notes
 
-1. The ideas present in the Docker image of phpMyAdmin are taken into account for users who are familiar with it.
+1. The ideas present in the Docker image of PostgreSQL are taken into account for users who are familiar with it.
