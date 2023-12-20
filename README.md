@@ -57,6 +57,24 @@ mount.devfs
 
 ### Initialization scripts
 
+If you would like to do additional initialization in an image derived from this one, add one or more `*.sql`, `*.sql.gz`, or `*.sh` scripts under `/appjail-initdb.d` (creating the directory if necessary). After starting PostgreSQL, this Makejail will run any `*.sql` files, run any executable `*.sh` scripts, and source any non-executable `*.sh` scripts found in that directory for further customization.
+
+For example, to add an additional user and database, add the following to `/appjail-initdb.d/init-user-db.sh`:
+
+```sh
+#!/bin/sh
+
+set -e
+
+psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" --dbname "${POSTGRES_DB}" <<-EOSQL
+        CREATE USER appjail;
+        CREATE DATABASE appjail;
+        GRANT ALL PRIVILEGES ON DATABASE appjail TO appjail;
+EOSQL
+```
+
+These initialization files will be executed in lexicographical order. Any `*.sql` files will be executed by `POSTGRES_USER`, which defaults to the `postgres` superuser. It is recommended that any psql commands that are run inside of a `*.sh` script be executed as `POSTGRES_USER` by using the `--username "$POSTGRES_USER"` flag. This user will be able to connect without a password due to the presence of trust authentication for Unix socket connections made inside the container.
+
 ### Arguments
 
 * `postgres_tag` (default: `13.2-16`): See [#tags](#tags).
