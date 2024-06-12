@@ -178,11 +178,11 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 | `13.3-14` | `amd64` | `13.3-RELEASE` | `thin` |     `14`     |
 | `13.3-15` | `amd64` | `13.3-RELEASE` | `thin` |     `15`     |
 | `13.3-16` | `amd64` | `13.3-RELEASE` | `thin` |     `16`     |
-| `14.0-12` | `amd64` | `14.0-RELEASE` | `thin` |     `12`     |
-| `14.0-13` | `amd64` | `14.0-RELEASE` | `thin` |     `13`     |
-| `14.0-14` | `amd64` | `14.0-RELEASE` | `thin` |     `14`     |
-| `14.0-15` | `amd64` | `14.0-RELEASE` | `thin` |     `15`     |
-| `14.0-16` | `amd64` | `14.0-RELEASE` | `thin` |     `16`     |
+| `14.1-12` | `amd64` | `14.1-RELEASE` | `thin` |     `12`     |
+| `14.1-13` | `amd64` | `14.1-RELEASE` | `thin` |     `13`     |
+| `14.1-14` | `amd64` | `14.1-RELEASE` | `thin` |     `14`     |
+| `14.1-15` | `amd64` | `14.1-RELEASE` | `thin` |     `15`     |
+| `14.1-16` | `amd64` | `14.1-RELEASE` | `thin` |     `16`     |
 
 ## Notes
 
