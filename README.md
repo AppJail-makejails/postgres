@@ -119,7 +119,7 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 
 ### Arguments
 
-* `postgres_tag` (default: `13.3-16`): See [#tags](#tags).
+* `postgres_tag` (default: `13.4-16`): See [#tags](#tags).
 
 ### Environment
 
@@ -173,11 +173,11 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 
 | Tag       | Arch    | Version        | Type   | `pg_version` |
 | --------- | ------- | -------------- | ------ | ------------ |
-| `13.3-12` | `amd64` | `13.3-RELEASE` | `thin` |     `12`     |
-| `13.3-13` | `amd64` | `13.3-RELEASE` | `thin` |     `13`     |
-| `13.3-14` | `amd64` | `13.3-RELEASE` | `thin` |     `14`     |
-| `13.3-15` | `amd64` | `13.3-RELEASE` | `thin` |     `15`     |
-| `13.3-16` | `amd64` | `13.3-RELEASE` | `thin` |     `16`     |
+| `13.4-12` | `amd64` | `13.4-RELEASE` | `thin` |     `12`     |
+| `13.4-13` | `amd64` | `13.4-RELEASE` | `thin` |     `13`     |
+| `13.4-14` | `amd64` | `13.4-RELEASE` | `thin` |     `14`     |
+| `13.4-15` | `amd64` | `13.4-RELEASE` | `thin` |     `15`     |
+| `13.4-16` | `amd64` | `13.4-RELEASE` | `thin` |     `16`     |
 | `14.1-12` | `amd64` | `14.1-RELEASE` | `thin` |     `12`     |
 | `14.1-13` | `amd64` | `14.1-RELEASE` | `thin` |     `13`     |
 | `14.1-14` | `amd64` | `14.1-RELEASE` | `thin` |     `14`     |
