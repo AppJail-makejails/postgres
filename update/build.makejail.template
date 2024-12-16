@@ -1,0 +1,11 @@
+ARG pg_version=%%POSTGRES5%%
+
+RAW case "${pg_version}" in
+RAW     %%POSTGRES1%%|%%POSTGRES2%%|%%POSTGRES3%%|%%POSTGRES4%%|%%POSTGRES5%%) ;;
+RAW     *) echo "VALID VERSIONS: %%POSTGRES1%%, %%POSTGRES2%%, %%POSTGRES3%%, %%POSTGRES4%%, %%POSTGRES5%%"; exit 1 ;;
+RAW esac
+
+INCLUDE options/options.makejail
+INCLUDE options/volumes.makejail
+
+PKG postgresql${pg_version}-server

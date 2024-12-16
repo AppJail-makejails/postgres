@@ -22,7 +22,7 @@ wikipedia.org/wiki/PostgreSQL
     -V POSTGRES_PASSWORD=mysecretpassword
 # appjail cmd jexec postgres -U postgres psql
 $ psql
-psql (16.0)
+psql (%%POSTGRES5%%.0)
 Type "help" for help.
 
 postgres=# SELECT 1;
@@ -119,7 +119,7 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 
 ### Arguments
 
-* `postgres_tag` (default: `13.4-16`): See [#tags](#tags).
+* `postgres_tag` (default: `%%TAG1%%-%%POSTGRES5%%`): See [#tags](#tags).
 * `postgres_ajspec` (default: `gh+AppJail-makejails/postgres`): Entry point where the `appjail-ajspec(5)` file is located.
 
 ### Environment
@@ -127,8 +127,8 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 * `POSTGRES_PASSWORD`: This environment variable is required for you to use the PostgreSQL Makejail. It must not be empty or undefined. This environment variable sets the superuser password for PostgreSQL. The default superuser is defined by the `POSTGRES_USER` environment variable. This environment variable is optional when `POSTGRES_HOST_AUTH_METHOD` is `trust`.
 * `POSTGRES_USER` (default: `postgres`): This optional environment variable is used in conjunction with `POSTGRES_PASSWORD` to set a user and its password. This variable will create the specified user with superuser power and a database with the same name. If it is not specified, then the default user of postgres will be used.
 * `POSTGRES_INITDB_ARGS` (optional): This optional environment variable can be used to send arguments to `postgres initdb`. The value is a space separated string of arguments as `postgres initdb` would expect them. This is useful for adding functionality like data page checksums: `-V POSTGRES_INITDB_ARGS="--data-checksums"`.
-* `POSTGRES_HOST_AUTH_METHOD`: This optional variable can be used to control the `auth-method` for `host` connections for `all` databases, `all` users, and `all` addresses. If unspecified then `scram-sha-256` password authentication is used (in 14+; `md5` in older releases).
-* `PGDATA`: This optional variable can be used to define another location - like a subdirectory - for the database files. The default value is `/var/db/postgres/data${pg_version}` where `${pg_version}` is the PostgreSQL major version (e.g.: `/var/db/postgres/data16`). 
+* `POSTGRES_HOST_AUTH_METHOD`: This optional variable can be used to control the `auth-method` for `host` connections for `all` databases, `all` users, and `all` addresses. If unspecified then `scram-sha-256` password authentication is used (in %%POSTGRES3%%+; `md5` in older releases).
+* `PGDATA`: This optional variable can be used to define another location - like a subdirectory - for the database files. The default value is `/var/db/postgres/data${pg_version}` where `${pg_version}` is the PostgreSQL major version (e.g.: `/var/db/postgres/data%%POSTGRES5%%`). 
 * `POSTGRES_DB` (default: `$POSTGRES_USER`): This optional environment variable can be used to define a different name for the default database that is created when the Makejail is first started. If it is not specified, then the value of `POSTGRES_USER` will be used.
 
 ### Volumes
@@ -140,50 +140,50 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 | pg-db   |  770  |  770  |  -   |  -   | /var/db/postgres |
 | pg-done |   -   |   -   |  -   |  -   | /.psql-done      |
 
-#### PostgreSQL 12.x
+#### PostgreSQL %%POSTGRES1%%.x
 
 | Name    | Owner | Group | Perm | Type | Mountpoint              |
 | ------- | ----- | ----- | ---- | ---- | ----------------------- |
-| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data12 |
+| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data%%POSTGRES1%% |
 
-#### PostgreSQL 13.x
-
-| Name    | Owner | Group | Perm | Type | Mountpoint              |
-| ------- | ----- | ----- | ---- | ---- | ----------------------- |
-| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data13 |
-
-#### PostgreSQL 14.x
+#### PostgreSQL %%POSTGRES2%%.x
 
 | Name    | Owner | Group | Perm | Type | Mountpoint              |
 | ------- | ----- | ----- | ---- | ---- | ----------------------- |
-| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data14 |
+| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data%%POSTGRES2%% |
 
-#### PostgreSQL 15.x
-
-| Name    | Owner | Group | Perm | Type | Mountpoint              |
-| ------- | ----- | ----- | ---- | ---- | ----------------------- |
-| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data15 |
-
-#### PostgreSQL 16.x
+#### PostgreSQL %%POSTGRES3%%.x
 
 | Name    | Owner | Group | Perm | Type | Mountpoint              |
 | ------- | ----- | ----- | ---- | ---- | ----------------------- |
-| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data16 |
+| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data%%POSTGRES3%% |
+
+#### PostgreSQL %%POSTGRES4%%.x
+
+| Name    | Owner | Group | Perm | Type | Mountpoint              |
+| ------- | ----- | ----- | ---- | ---- | ----------------------- |
+| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data%%POSTGRES4%% |
+
+#### PostgreSQL %%POSTGRES5%%.x
+
+| Name    | Owner | Group | Perm | Type | Mountpoint              |
+| ------- | ----- | ----- | ---- | ---- | ----------------------- |
+| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data%%POSTGRES5%% |
 
 ## Tags
 
 | Tag       | Arch    | Version        | Type   | `pg_version` |
 | --------- | ------- | -------------- | ------ | ------------ |
-| `13.4-12` | `amd64` | `13.4-RELEASE` | `thin` |     `12`     |
-| `13.4-13` | `amd64` | `13.4-RELEASE` | `thin` |     `13`     |
-| `13.4-14` | `amd64` | `13.4-RELEASE` | `thin` |     `14`     |
-| `13.4-15` | `amd64` | `13.4-RELEASE` | `thin` |     `15`     |
-| `13.4-16` | `amd64` | `13.4-RELEASE` | `thin` |     `16`     |
-| `14.2-12` | `amd64` | `14.2-RELEASE` | `thin` |     `12`     |
-| `14.2-13` | `amd64` | `14.2-RELEASE` | `thin` |     `13`     |
-| `14.2-14` | `amd64` | `14.2-RELEASE` | `thin` |     `14`     |
-| `14.2-15` | `amd64` | `14.2-RELEASE` | `thin` |     `15`     |
-| `14.2-16` | `amd64` | `14.2-RELEASE` | `thin` |     `16`     |
+| `%%TAG1%%-%%POSTGRES1%%` | `amd64` | `%%TAG1%%-RELEASE` | `thin` |     `%%POSTGRES1%%`     |
+| `%%TAG1%%-%%POSTGRES2%%` | `amd64` | `%%TAG1%%-RELEASE` | `thin` |     `%%POSTGRES2%%`     |
+| `%%TAG1%%-%%POSTGRES3%%` | `amd64` | `%%TAG1%%-RELEASE` | `thin` |     `%%POSTGRES3%%`     |
+| `%%TAG1%%-%%POSTGRES4%%` | `amd64` | `%%TAG1%%-RELEASE` | `thin` |     `%%POSTGRES4%%`     |
+| `%%TAG1%%-%%POSTGRES5%%` | `amd64` | `%%TAG1%%-RELEASE` | `thin` |     `%%POSTGRES5%%`     |
+| `%%TAG2%%-%%POSTGRES1%%` | `amd64` | `%%TAG2%%-RELEASE` | `thin` |     `%%POSTGRES1%%`     |
+| `%%TAG2%%-%%POSTGRES2%%` | `amd64` | `%%TAG2%%-RELEASE` | `thin` |     `%%POSTGRES2%%`     |
+| `%%TAG2%%-%%POSTGRES3%%` | `amd64` | `%%TAG2%%-RELEASE` | `thin` |     `%%POSTGRES3%%`     |
+| `%%TAG2%%-%%POSTGRES4%%` | `amd64` | `%%TAG2%%-RELEASE` | `thin` |     `%%POSTGRES4%%`     |
+| `%%TAG2%%-%%POSTGRES5%%` | `amd64` | `%%TAG2%%-RELEASE` | `thin` |     `%%POSTGRES5%%`     |
 
 ## Notes
 
