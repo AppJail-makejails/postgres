@@ -1,8 +1,8 @@
-ARG pg_version=16
+ARG pg_version=17
 
 RAW case "${pg_version}" in
-RAW     12|13|14|15|16) ;;
-RAW     *) echo "VALID VERSIONS: 12, 13, 14, 15, 16"; exit 1 ;;
+RAW     13|14|15|16|17) ;;
+RAW     *) echo "VALID VERSIONS: 13, 14, 15, 16, 17"; exit 1 ;;
 RAW esac
 
 INCLUDE options/options.makejail

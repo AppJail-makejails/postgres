@@ -22,7 +22,7 @@ wikipedia.org/wiki/PostgreSQL
     -V POSTGRES_PASSWORD=mysecretpassword
 # appjail cmd jexec postgres -U postgres psql
 $ psql
-psql (16.0)
+psql (17.0)
 Type "help" for help.
 
 postgres=# SELECT 1;
@@ -119,7 +119,7 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 
 ### Arguments
 
-* `postgres_tag` (default: `13.4-16`): See [#tags](#tags).
+* `postgres_tag` (default: `13.4-17`): See [#tags](#tags).
 * `postgres_ajspec` (default: `gh+AppJail-makejails/postgres`): Entry point where the `appjail-ajspec(5)` file is located.
 
 ### Environment
@@ -127,8 +127,8 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 * `POSTGRES_PASSWORD`: This environment variable is required for you to use the PostgreSQL Makejail. It must not be empty or undefined. This environment variable sets the superuser password for PostgreSQL. The default superuser is defined by the `POSTGRES_USER` environment variable. This environment variable is optional when `POSTGRES_HOST_AUTH_METHOD` is `trust`.
 * `POSTGRES_USER` (default: `postgres`): This optional environment variable is used in conjunction with `POSTGRES_PASSWORD` to set a user and its password. This variable will create the specified user with superuser power and a database with the same name. If it is not specified, then the default user of postgres will be used.
 * `POSTGRES_INITDB_ARGS` (optional): This optional environment variable can be used to send arguments to `postgres initdb`. The value is a space separated string of arguments as `postgres initdb` would expect them. This is useful for adding functionality like data page checksums: `-V POSTGRES_INITDB_ARGS="--data-checksums"`.
-* `POSTGRES_HOST_AUTH_METHOD`: This optional variable can be used to control the `auth-method` for `host` connections for `all` databases, `all` users, and `all` addresses. If unspecified then `scram-sha-256` password authentication is used (in 14+; `md5` in older releases).
-* `PGDATA`: This optional variable can be used to define another location - like a subdirectory - for the database files. The default value is `/var/db/postgres/data${pg_version}` where `${pg_version}` is the PostgreSQL major version (e.g.: `/var/db/postgres/data16`). 
+* `POSTGRES_HOST_AUTH_METHOD`: This optional variable can be used to control the `auth-method` for `host` connections for `all` databases, `all` users, and `all` addresses. If unspecified then `scram-sha-256` password authentication is used (in 15+; `md5` in older releases).
+* `PGDATA`: This optional variable can be used to define another location - like a subdirectory - for the database files. The default value is `/var/db/postgres/data${pg_version}` where `${pg_version}` is the PostgreSQL major version (e.g.: `/var/db/postgres/data17`). 
 * `POSTGRES_DB` (default: `$POSTGRES_USER`): This optional environment variable can be used to define a different name for the default database that is created when the Makejail is first started. If it is not specified, then the value of `POSTGRES_USER` will be used.
 
 ### Volumes
@@ -139,12 +139,6 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 | ------- | ----- | ----- | ---- | ---- | ---------------- |
 | pg-db   |  770  |  770  |  -   |  -   | /var/db/postgres |
 | pg-done |   -   |   -   |  -   |  -   | /.psql-done      |
-
-#### PostgreSQL 12.x
-
-| Name    | Owner | Group | Perm | Type | Mountpoint              |
-| ------- | ----- | ----- | ---- | ---- | ----------------------- |
-| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data12 |
 
 #### PostgreSQL 13.x
 
@@ -170,20 +164,26 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 | ------- | ----- | ----- | ---- | ---- | ----------------------- |
 | pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data16 |
 
+#### PostgreSQL 17.x
+
+| Name    | Owner | Group | Perm | Type | Mountpoint              |
+| ------- | ----- | ----- | ---- | ---- | ----------------------- |
+| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data17 |
+
 ## Tags
 
 | Tag       | Arch    | Version        | Type   | `pg_version` |
 | --------- | ------- | -------------- | ------ | ------------ |
-| `13.4-12` | `amd64` | `13.4-RELEASE` | `thin` |     `12`     |
 | `13.4-13` | `amd64` | `13.4-RELEASE` | `thin` |     `13`     |
 | `13.4-14` | `amd64` | `13.4-RELEASE` | `thin` |     `14`     |
 | `13.4-15` | `amd64` | `13.4-RELEASE` | `thin` |     `15`     |
 | `13.4-16` | `amd64` | `13.4-RELEASE` | `thin` |     `16`     |
-| `14.2-12` | `amd64` | `14.2-RELEASE` | `thin` |     `12`     |
+| `13.4-17` | `amd64` | `13.4-RELEASE` | `thin` |     `17`     |
 | `14.2-13` | `amd64` | `14.2-RELEASE` | `thin` |     `13`     |
 | `14.2-14` | `amd64` | `14.2-RELEASE` | `thin` |     `14`     |
 | `14.2-15` | `amd64` | `14.2-RELEASE` | `thin` |     `15`     |
 | `14.2-16` | `amd64` | `14.2-RELEASE` | `thin` |     `16`     |
+| `14.2-17` | `amd64` | `14.2-RELEASE` | `thin` |     `17`     |
 
 ## Notes
 
