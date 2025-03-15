@@ -119,7 +119,7 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 
 ### Arguments
 
-* `postgres_tag` (default: `13.4-17`): See [#tags](#tags).
+* `postgres_tag` (default: `13.5-17`): See [#tags](#tags).
 * `postgres_ajspec` (default: `gh+AppJail-makejails/postgres`): Entry point where the `appjail-ajspec(5)` file is located.
 
 ### Environment
@@ -174,11 +174,11 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 
 | Tag       | Arch    | Version        | Type   | `pg_version` |
 | --------- | ------- | -------------- | ------ | ------------ |
-| `13.4-13` | `amd64` | `13.4-RELEASE` | `thin` |     `13`     |
-| `13.4-14` | `amd64` | `13.4-RELEASE` | `thin` |     `14`     |
-| `13.4-15` | `amd64` | `13.4-RELEASE` | `thin` |     `15`     |
-| `13.4-16` | `amd64` | `13.4-RELEASE` | `thin` |     `16`     |
-| `13.4-17` | `amd64` | `13.4-RELEASE` | `thin` |     `17`     |
+| `13.5-13` | `amd64` | `13.5-RELEASE` | `thin` |     `13`     |
+| `13.5-14` | `amd64` | `13.5-RELEASE` | `thin` |     `14`     |
+| `13.5-15` | `amd64` | `13.5-RELEASE` | `thin` |     `15`     |
+| `13.5-16` | `amd64` | `13.5-RELEASE` | `thin` |     `16`     |
+| `13.5-17` | `amd64` | `13.5-RELEASE` | `thin` |     `17`     |
 | `14.2-13` | `amd64` | `14.2-RELEASE` | `thin` |     `13`     |
 | `14.2-14` | `amd64` | `14.2-RELEASE` | `thin` |     `14`     |
 | `14.2-15` | `amd64` | `14.2-RELEASE` | `thin` |     `15`     |
