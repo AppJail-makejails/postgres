@@ -1,6 +1,6 @@
 INCLUDE options/options.makejail
 
-ARG postgres_tag=13.5-17
+ARG postgres_tag=14.3-17
 ARG postgres_ajspec=gh+AppJail-makejails/postgres
 
 FROM --entrypoint "${postgres_ajspec}" postgres:${postgres_tag}

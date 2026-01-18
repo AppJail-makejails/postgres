@@ -179,11 +179,11 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 | `%%TAG1%%-%%POSTGRES3%%` | `amd64` | `%%TAG1%%-RELEASE` | `thin` |     `%%POSTGRES3%%`     |
 | `%%TAG1%%-%%POSTGRES4%%` | `amd64` | `%%TAG1%%-RELEASE` | `thin` |     `%%POSTGRES4%%`     |
 | `%%TAG1%%-%%POSTGRES5%%` | `amd64` | `%%TAG1%%-RELEASE` | `thin` |     `%%POSTGRES5%%`     |
-| `%%TAG2%%-%%POSTGRES1%%` | `amd64` | `%%TAG2%%-RELEASE` | `thin` |     `%%POSTGRES1%%`     |
-| `%%TAG2%%-%%POSTGRES2%%` | `amd64` | `%%TAG2%%-RELEASE` | `thin` |     `%%POSTGRES2%%`     |
-| `%%TAG2%%-%%POSTGRES3%%` | `amd64` | `%%TAG2%%-RELEASE` | `thin` |     `%%POSTGRES3%%`     |
-| `%%TAG2%%-%%POSTGRES4%%` | `amd64` | `%%TAG2%%-RELEASE` | `thin` |     `%%POSTGRES4%%`     |
-| `%%TAG2%%-%%POSTGRES5%%` | `amd64` | `%%TAG2%%-RELEASE` | `thin` |     `%%POSTGRES5%%`     |
+| `%%TAG2%%-%%POSTGRES1%%` | `amd64` | `%%TAG2%%` | `thin` |     `%%POSTGRES1%%`     |
+| `%%TAG2%%-%%POSTGRES2%%` | `amd64` | `%%TAG2%%` | `thin` |     `%%POSTGRES2%%`     |
+| `%%TAG2%%-%%POSTGRES3%%` | `amd64` | `%%TAG2%%` | `thin` |     `%%POSTGRES3%%`     |
+| `%%TAG2%%-%%POSTGRES4%%` | `amd64` | `%%TAG2%%` | `thin` |     `%%POSTGRES4%%`     |
+| `%%TAG2%%-%%POSTGRES5%%` | `amd64` | `%%TAG2%%` | `thin` |     `%%POSTGRES5%%`     |
 
 ## Notes
 
