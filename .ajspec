@@ -68,4 +68,3 @@ tags+: 15-17
 15-17.sum.amd64: 656618abd9df04f9f2b5488c3fd351641e13d501d41b93fa3e6dbf5479fa0bf8
 15-17.size.amd64: 715639563
 15-17.source.amd64: "http://appjail.hpc.at/postgres/15-17-amd64-image.appjail"
-maintenance: "This image is uploading, please wait a moment and try again. If you are importing this image using a Makejail that has the '--<name>_ajspec' argument, you can use the 'reproduce' method to use 'appjail-reproduce'. See 'appjail-image(5)' for details."
