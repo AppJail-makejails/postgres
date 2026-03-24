@@ -85,7 +85,7 @@ volumes:
     device: /var/cache/appjail/postgres/pkgcache
 ```
 
-Run `appjail-director up` and wait until the project finishes. In just a few minutes you have PostgreSQL deployed.
+Run `appjail-director up -p postgres` and wait until the project finishes. In just a few minutes you have PostgreSQL deployed.
 
 ### Locale Customization
 
