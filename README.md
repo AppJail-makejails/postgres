@@ -83,6 +83,7 @@ volumes:
     device: /var/appjail-volumes/postgres/done
   pkgcache:
     device: /var/cache/appjail/postgres/pkgcache
+    type: nullfs
 ```
 
 Run `appjail-director up -p postgres` and wait until the project finishes. In just a few minutes you have PostgreSQL deployed.
