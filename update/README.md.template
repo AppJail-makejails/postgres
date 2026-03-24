@@ -6,7 +6,7 @@ PostgreSQL has earned a strong reputation for its proven architecture, reliabili
 
 wikipedia.org/wiki/PostgreSQL
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/540px-Postgresql_elephant.svg.png" width="80%" height="auto">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/540px-Postgresql_elephant.svg.png" width="60%" height="auto">
 
 ## How to use this Makejail
 
