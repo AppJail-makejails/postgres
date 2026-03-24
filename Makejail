@@ -1,9 +1,20 @@
-INCLUDE options/options.makejail
+ARG postgres_version
 
-ARG postgres_tag=14.3-17
-ARG postgres_ajspec=gh+AppJail-makejails/postgres
+OPTION start
+OPTION overwrite=force
+OPTION volume=pg-db mountpoint:/var/db/postgres owner:${puid} group:${pgid}
+OPTION volume=pg-data mountpoint:/var/db/postgres/data${postgres_version} owner:${puid} group:${pgid} perm:700
+OPTION volume=pg-done mountpoint:/.psql-done
 
-FROM --entrypoint "${postgres_ajspec}" postgres:${postgres_tag}
+INCLUDE gh+AppJail-makejails/user-mapping
+
+PKG postgresql${postgres_version}-server
+
+SYSRC postgresql_user=noroot
+SYSRC "postgresql_data=/var/db/postgres/data${postgres_version}"
+
+CMD find /var/db/postgres -user postgres -exec chown -h noroot {} +
+CMD find /var/db/postgres -group postgres -exec chown -h :noroot {} +
 
 RAW if appjail cmd jexec "${APPJAIL_JAILNAME}" [ -f "/.psql-done/skip-scripts" ]; then
     CMD echo "======> Installation appears to have a PostgreSQL already configured, the scripts will not run. <======"
@@ -25,7 +36,7 @@ RAW else
 
     WORKDIR /scripts
 
-    USER postgres
+    USER noroot
 
     CMD echo "======> Configuring 'initdb' ... <======"
     RUN ./initdb.sh

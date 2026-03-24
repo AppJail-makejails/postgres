@@ -19,13 +19,14 @@ wikipedia.org/wiki/PostgreSQL
     -o virtualnet=":<random> default" \
     -o nat \
     -o template="$PWD/template.conf" \
-    -V POSTGRES_PASSWORD=mysecretpassword
-# appjail cmd jexec postgres -U postgres psql
+    -V POSTGRES_PASSWORD=mysecretpassword \
+        -- --postgres_version 18
+# appjail cmd jexec postgres -U noroot psql
 $ psql
-psql (17.0)
+psql (18.3)
 Type "help" for help.
 
-postgres=# SELECT 1;
+noroot=# SELECT 1;
  ?column?
 ----------
         1
@@ -53,7 +54,6 @@ mount.devfs
 options:
   - virtualnet: ':<random> default'
   - nat:
-
 services:
   db:
     name: postgres
@@ -62,12 +62,27 @@ services:
       - POSTGRES_PASSWORD: example
     options:
       - template: !ENV '${PWD}/template.conf'
-
+    arguments:
+      - puid: 1000
+      - pgid: 1000
+      - postgres_version: 18
+    volumes:
+      - db: pg-db
+      - done: pg-done
+      - pkgcache: /var/cache/pkg
   adminerevo:
     name: adminerevo
-    makejail: gh+AppJail-makejails/adminerevo
+    makejail: gh+AppJail-makejails/adminer
     options:
       - expose: '8080:80'
+default_volume_type: '<volumefs>'
+volumes:
+  db:
+    device: /var/appjail-volumes/postgres/db
+  done:
+    device: /var/appjail-volumes/postgres/done
+  pkgcache:
+    device: /var/cache/appjail/postgres/pkgcache
 ```
 
 Run `appjail-director up` and wait until the project finishes. In just a few minutes you have PostgreSQL deployed.
@@ -119,13 +134,12 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 
 ### Arguments
 
-* `postgres_tag` (default: `14.3-17`): See [#tags](#tags).
-* `postgres_ajspec` (default: `gh+AppJail-makejails/postgres`): Entry point where the `appjail-ajspec(5)` file is located.
+* `postgres_version` (mandatory): PostgreSQL version.
 
 ### Environment
 
 * `POSTGRES_PASSWORD`: This environment variable is required for you to use the PostgreSQL Makejail. It must not be empty or undefined. This environment variable sets the superuser password for PostgreSQL. The default superuser is defined by the `POSTGRES_USER` environment variable. This environment variable is optional when `POSTGRES_HOST_AUTH_METHOD` is `trust`.
-* `POSTGRES_USER` (default: `postgres`): This optional environment variable is used in conjunction with `POSTGRES_PASSWORD` to set a user and its password. This variable will create the specified user with superuser power and a database with the same name. If it is not specified, then the default user of postgres will be used.
+* `POSTGRES_USER` (default: `noroot`): This optional environment variable is used in conjunction with `POSTGRES_PASSWORD` to set a user and its password. This variable will create the specified user with superuser power and a database with the same name. If it is not specified, then the default user of postgres will be used.
 * `POSTGRES_INITDB_ARGS` (optional): This optional environment variable can be used to send arguments to `postgres initdb`. The value is a space separated string of arguments as `postgres initdb` would expect them. This is useful for adding functionality like data page checksums: `-V POSTGRES_INITDB_ARGS="--data-checksums"`.
 * `POSTGRES_HOST_AUTH_METHOD`: This optional variable can be used to control the `auth-method` for `host` connections for `all` databases, `all` users, and `all` addresses. If unspecified then `scram-sha-256` password authentication is used (in 15+; `md5` in older releases).
 * `PGDATA`: This optional variable can be used to define another location - like a subdirectory - for the database files. The default value is `/var/db/postgres/data${pg_version}` where `${pg_version}` is the PostgreSQL major version (e.g.: `/var/db/postgres/data17`). 
@@ -133,60 +147,15 @@ These initialization files will be executed in lexicographical order. Any `*.sql
 
 ### Volumes
 
-#### All
-
-| Name    | Owner | Group | Perm | Type | Mountpoint       |
-| ------- | ----- | ----- | ---- | ---- | ---------------- |
-| pg-db   |  770  |  770  |  -   |  -   | /var/db/postgres |
-| pg-done |   -   |   -   |  -   |  -   | /.psql-done      |
-
-#### PostgreSQL 13.x
-
-| Name    | Owner | Group | Perm | Type | Mountpoint              |
-| ------- | ----- | ----- | ---- | ---- | ----------------------- |
-| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data13 |
-
-#### PostgreSQL 14.x
-
-| Name    | Owner | Group | Perm | Type | Mountpoint              |
-| ------- | ----- | ----- | ---- | ---- | ----------------------- |
-| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data14 |
-
-#### PostgreSQL 15.x
-
-| Name    | Owner | Group | Perm | Type | Mountpoint              |
-| ------- | ----- | ----- | ---- | ---- | ----------------------- |
-| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data15 |
-
-#### PostgreSQL 16.x
-
-| Name    | Owner | Group | Perm | Type | Mountpoint              |
-| ------- | ----- | ----- | ---- | ---- | ----------------------- |
-| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data16 |
-
-#### PostgreSQL 17.x
-
-| Name    | Owner | Group | Perm | Type | Mountpoint              |
-| ------- | ----- | ----- | ---- | ---- | ----------------------- |
-| pg-data |  770  |  770  | 700  |  -   | /var/db/postgres/data17 |
-
-## Tags
-
-| Tag       | Arch    | Version        | Type   | `pg_version` |
-| --------- | ------- | -------------- | ------ | ------------ |
-| `14.3-13` | `amd64` | `14.3-RELEASE` | `thin` |     `13`     |
-| `14.3-14` | `amd64` | `14.3-RELEASE` | `thin` |     `14`     |
-| `14.3-15` | `amd64` | `14.3-RELEASE` | `thin` |     `15`     |
-| `14.3-16` | `amd64` | `14.3-RELEASE` | `thin` |     `16`     |
-| `14.3-17` | `amd64` | `14.3-RELEASE` | `thin` |     `17`     |
-| `15-13` | `amd64` | `15` | `thin` |     `13`     |
-| `15-14` | `amd64` | `15` | `thin` |     `14`     |
-| `15-15` | `amd64` | `15` | `thin` |     `15`     |
-| `15-16` | `amd64` | `15` | `thin` |     `16`     |
-| `15-17` | `amd64` | `15` | `thin` |     `17`     |
+| Name    | Owner     | Group     | Perm | Type | Mountpoint                                 |
+| ------- | --------- | --------- | ---- | ---- | ------------------------------------------ |
+| pg-db   | `${puid}` | `${puid}` |  -   |  -   | /var/db/postgres                           |
+| pg-done | -         |   -       |  -   |  -   | /.psql-done                                |
+| pg-data | `${puid}` | `${pgid}` | 700  |  -   | /var/db/postgres/data`${postgres_version}` |
 
 ## Notes
 
 1. The ideas present in the Docker image of PostgreSQL are taken into account for users who are familiar with it.
 2. `listen_addresses` is set to `*`.
 3. This Makejail assumes a new installation for each run, if you want to not run the scripts that configure PostgreSQL, mount an empty directory to `/.psql-done`.
+4. This Makejail includes [gh+AppJail-makejails/user-mapping](https://github.com/AppJail-makejails/user-mapping).
