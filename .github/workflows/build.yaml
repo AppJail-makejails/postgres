@@ -1,0 +1,32 @@
+name: Build OCI image for postgres
+
+on:
+  schedule:
+    - cron: '0 0 21 * *'
+  push:
+    branches: [main]
+    paths-ignore: ['*.md', 'LICENSE', '.gitignore']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for the build'
+        required: false
+        type: string
+        default: 'Manual dispatch'
+
+jobs:
+  build:
+    uses: appjail-makejails/workflows/.github/workflows/daemonless-build.yaml@main
+    with:
+      image_name: postgres
+      reason: ${{ inputs.reason || 'No description provided' }}
+    secrets: inherit
+  workflow-keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: liskin/gh-workflow-keepalive@7a9194bad497f0b993708eeaf10fc0a2d726eb71

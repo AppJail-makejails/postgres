@@ -1,0 +1,39 @@
+build:
+  variants:
+    - tag: 15.1-14
+      containerfile: Containerfile
+      args:
+        FREEBSD_RELEASE: "15.1"
+        POSTGRESVER: "14"
+        NO_PKGCLEAN: "1"
+      cache_dirs: ["pkgcache0:/var/cache/pkg"]
+    - tag: 15.1-15
+      containerfile: Containerfile
+      args:
+        FREEBSD_RELEASE: "15.1"
+        POSTGRESVER: "15"
+        NO_PKGCLEAN: "1"
+      cache_dirs: ["pkgcache0:/var/cache/pkg"]
+    - tag: 15.1-16
+      containerfile: Containerfile
+      args:
+        FREEBSD_RELEASE: "15.1"
+        POSTGRESVER: "16"
+        NO_PKGCLEAN: "1"
+      cache_dirs: ["pkgcache0:/var/cache/pkg"]
+    - tag: 15.1-17
+      containerfile: Containerfile
+      args:
+        FREEBSD_RELEASE: "15.1"
+        POSTGRESVER: "17"
+        NO_PKGCLEAN: "1"
+      cache_dirs: ["pkgcache0:/var/cache/pkg"]
+    - tag: 15.1-18
+      containerfile: Containerfile
+      aliases: ["latest"]
+      default: true
+      args:
+        FREEBSD_RELEASE: "15.1"
+        POSTGRESVER: "18"
+        NO_PKGCLEAN: "1"
+      cache_dirs: ["pkgcache0:/var/cache/pkg"]
