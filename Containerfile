@@ -24,8 +24,9 @@ RUN set -xe; \
     \
     if [ -z "${NO_PKGCLEAN}" ]; then \
         pkg clean -a; \
-        rm -rf /var/cache/pkg/* /var/db/pkg/repos/*; \
+        rm -rf /var/cache/pkg/*; \
     fi; \
+    rm -rf /var/db/pkg/repos/*; \
     \
 	cp -v /usr/local/share/postgresql/postgresql.conf.sample /usr/local/share/postgresql/postgresql.conf.sample.orig; \
 	gsed -ri "s!^#?(listen_addresses)\s*=\s*\S+.*!\1 = '*'!" /usr/local/share/postgresql/postgresql.conf.sample; \
