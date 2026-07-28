@@ -18,9 +18,7 @@ RUN set -xe; \
     pkg install -U postgresql${POSTGRESVER}-server \
         bash \
         gsed \
-        FreeBSD-xz \
-        FreeBSD-locales \
-        FreeBSD-utilities; \
+        FreeBSD-xz; \
     \
     if [ -z "${NO_PKGCLEAN}" ]; then \
         pkg clean -a; \
