@@ -19,6 +19,9 @@ on:
 jobs:
   build:
     uses: appjail-makejails/workflows/.github/workflows/daemonless-build.yaml@main
+    permissions:
+      contents: read
+      packages: write
     with:
       image_name: postgres
       reason: ${{ inputs.reason || 'No description provided' }}
