@@ -1,5 +1,6 @@
 ARG postgres_from=ghcr.io/appjail-makejails/postgres
 ARG postgres_tag=latest
 
+OPTION container=boot
 OPTION overwrite=force
 OPTION from=${postgres_from}:${postgres_tag}

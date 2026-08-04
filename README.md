@@ -77,7 +77,7 @@ services:
     makejail: gh+AppJail-makejails/postgres
     options:
       - template: !ENV '${PWD}/template.conf'
-      - container: 'boot args:--pull'
+      - container: 'args:--pull'
     oci:
       environment:
         - POSTGRES_PASSWORD: example
