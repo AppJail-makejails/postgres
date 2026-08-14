@@ -15,7 +15,7 @@ LABEL org.opencontainers.image.title="PostgreSQL" \
 RUN set -xe; \
     \
     pkg update; \
-    pkg install -U postgresql${POSTGRESVER}-server \
+    pkg install postgresql${POSTGRESVER}-server \
         bash \
         gsed \
         FreeBSD-xz; \
