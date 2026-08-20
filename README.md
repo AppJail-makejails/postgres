@@ -141,21 +141,19 @@ See the PostgreSQL documentation on [`pg_hba.conf`](https://www.postgresql.org/d
 
 This (`PGDATA`) is an environment variable that is not AppJail specific. Because the variable is used by the `postgres` server binary (see the [PostgreSQL docs](https://www.postgresql.org/docs/14/app-postgres.html#id-1.9.5.14.7)), the entrypoint script takes it into account.
 
-#### Secrets
+#### AppJail Secrets
 
-As an alternative to passing sensitive information via environment variables, `_FILE` may be appended to some of the previously listed environment variables, causing the initialization script to load the values for those variables from files present in the container. In particular, this can be used to load passwords from files stored anywhere within the container. For example:
+As an alternative to passing sensitive information via environment variables, `_FILE` may be appended to some of the previously listed environment variables, causing the initialization script to load the values for those variables from files present in the container. In particular, this can be used to load passwords from [AppJail secrets](https://appjail.readthedocs.io/en/latest/secrets/) stored in `/secrets/<group_name>/<secret_name>` files. For example:
 
 ```console
-$ mkdir -p /path/to/your/postgres/secrets
-$ echo "mysecretpassword" > /path/to/your/postgres/secrets/passwd
+$ appjail secrets create -s postgres/passwd mysecretpassword
 $ appjail oci run -Pd \
     -o overwrite=force \
     -o virtualnet=":<random> default" \
     -o nat \
     -o template=template.conf \
-    -o volume="postgres-secrets" \
-    -o fstab="/path/to/your/postgres/secrets postgres-secrets <volumefs> ro" \
-    -e POSTGRES_PASSWORD_FILE="/volumes/postgres-secrets/passwd" \
+    -o secret=postgres \
+    -e POSTGRES_PASSWORD_FILE="/secrets/postgres/passwd" \
     ghcr.io/appjail-makejails/postgres postgres
 ```
 
@@ -269,6 +267,7 @@ The `-o fstab="/my/own/datadir /var/db/postgres"` part of the command mounts the
 
 * `PGID` (default: `1000`): Equivalent to `PUID` but for the Process Group ID.
 * `PUID` (default: `1000`): Process User ID for the container's main process, allowing you to match the owner of files written to mounted host volumes to your host system's user. Writable volumes are changed based on this environment variable.
+* `UMASK` (default: `0022`): Override default umask setting.
 
 ### Volumes
 
