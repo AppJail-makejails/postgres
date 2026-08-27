@@ -310,11 +310,18 @@ build:
       cache_dirs: ["pkgcache0:/var/cache/pkg"]
     - tag: 15.1-18
       containerfile: Containerfile
+      args:
+        FREEBSD_RELEASE: "15.1"
+        POSTGRESVER: "18"
+        NO_PKGCLEAN: "1"
+      cache_dirs: ["pkgcache0:/var/cache/pkg"]
+    - tag: 15.1-19
+      containerfile: Containerfile
       aliases: ["latest"]
       default: true
       args:
         FREEBSD_RELEASE: "15.1"
-        POSTGRESVER: "18"
+        POSTGRESVER: "19"
         NO_PKGCLEAN: "1"
       cache_dirs: ["pkgcache0:/var/cache/pkg"]
 ```
